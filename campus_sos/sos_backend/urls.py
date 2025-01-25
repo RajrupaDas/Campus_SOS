@@ -8,6 +8,6 @@ router.register(r'users', UserViewSet)
 router.register(r'locations', LocationViewSet)
 
 urlpatterns = [
-    path('api/', include(router.urls)),  # Includes all the routes defined by the router
+    path('', include(router.urls)),  # Includes all the routes defined by the router
 ]
 
