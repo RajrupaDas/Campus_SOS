@@ -1,9 +1,8 @@
-# campus_sos/urls.py
 from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('sos_backend.urls')),  # Include your app's API URLs
+    path('sos_backend/', include('sos_backend.urls')),
 ]
 
