@@ -25,7 +25,36 @@ class Location(models.Model):
     latitude = models.FloatField()  # Store latitude as a float
     longitude = models.FloatField()  # Store longitude as a float
     timestamp = models.DateTimeField(auto_now_add=True)  # Timestamp for when the location was recorded
+    active = models.BooleanField(default=True)  # Whether the user is active (visible on the map)
 
     def __str__(self):
         return f"Location of {self.user.name} at {self.timestamp}"
 
+# sos_backend/models.py
+
+class SOSAlert(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # The user who triggered the SOS
+    time = models.DateTimeField(auto_now_add=True)  # Time of alert
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    
+    def __str__(self):
+        return f"SOS Alert from {self.user.username} at {self.time}"
+
+# sos_baceend/models.py
+
+class CrowdedLocation(models.Model):
+    name = models.CharField(max_length=100)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    
+    def __str__(self):
+        return self.name
+
+class Buddy(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    buddy = models.ForeignKey(User, related_name='buddies', on_delete=models.CASCADE)
+    matched = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.buddy.username} (Matched: {self.matched})"
